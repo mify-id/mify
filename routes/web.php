@@ -39,6 +39,8 @@ Route::get('/dashboard', function () {
 
     return Inertia::render('Dashboard', [
         'briefs' => \App\Models\Brief::latest()->get(),
+        'pipelines' => \Illuminate\Support\Facades\Schema::hasTable('pipelines') ? \App\Models\Pipeline::latest()->get() : [],
+        'portfolios' => \Illuminate\Support\Facades\Schema::hasTable('portfolios') ? \App\Models\Portfolio::latest()->get() : [],
         'dbSize' => $dbSize,
         'adminCount' => \App\Models\User::count(),
         'auditLogs' => \App\Models\AuditLog::latest()->take(5)->get(),

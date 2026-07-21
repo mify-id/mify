@@ -27,6 +27,15 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [22 Juli 2026] - Redesign Executive Admin Dashboard (`Dashboard.jsx`)
+- **Apa yang dilakukan:**
+  1. **Executive KPI Cards Row:** Menampilkan 4 kartu KPI utama (Inbound Briefs, Active Pipelines, Portfolio Showcase, dan SQLite System Storage) dengan indikator status dan link pintas cepat.
+  2. **Grid Tata Letak Komprehensif (8/12 & 4/12):** 
+     - **Sisi Kiri (8/12):** Spotlight proyek pipeline aktif (*In Build*) dan daftar brief klien masuk secara real-time lengkap dengan konsol AI Blueprint Architect & hapus konfirmasi.
+     - **Sisi Kanan (4/12):** Widget *Quick Navigation*, spesifikasi infrastruktur sistem (Laravel 13, PHP 8.3, Vite status, Open Design Daemon, Git commit hash), serta Security Audit Trail.
+  3. **Verification & Build:** Memverifikasi kompilasi Vite build (`994ms`) dan 25 pengujian otomatis lulus 100%.
+- **File yang terdampak:** `resources/js/Pages/Dashboard.jsx`, `routes/web.php`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Layar Live Site Overview & Dynamic Device Viewport Switcher
 - **Apa yang dilakukan:**
   1. **New Admin Navigation Menu:** Menambahkan menu **"Tampilan Website Utama"** / **"Live Website View"** pada sidebar `AdminLayout.jsx` yang mengarah ke rute `/dashboard/live-preview`.
