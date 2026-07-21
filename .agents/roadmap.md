@@ -27,6 +27,15 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [22 Juli 2026] - Penyempurnaan Tagline Eyebrow Pill Hero (User-Friendly & Value-Driven)
+- **Apa yang dilakukan:**
+  1. **Anti-Jargon Copywriting Update:** Mengganti frasa teknis rumit *"Modern Laravel + React Architecture"* pada badge Hero Section dengan frasa nilai bisnis yang ramah awam:
+     - EN: `[ DIGITAL SYSTEMS AGENCY ] Custom Web Solutions & AI Automations ->`
+     - ID: `[ AGENSI SISTEM DIGITAL ] Solusi Web Kustom & Otomasi AI ->`
+  2. **Dynamic Localization Binding:** Mengikat teks sub-tagline di `Welcome.jsx` secara dinamis ke kunci terjemahan `welcome.hero_subspan` pada `en.json` & `id.json`.
+  3. **Build & Test Verification:** Aset terkompilasi 100% sukses dan 25 suite pengujian otomatis lulus bersih.
+- **File yang terdampak:** `resources/js/Pages/Welcome.jsx`, `resources/js/locales/en.json`, `resources/js/locales/id.json`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Penyederhanaan Label Merek ke `mify` (Tanpa Akhiran Domain .id)
 - **Apa yang dilakukan:**
   1. **Brand Label Simplification:** Menyederhanakan seluruh elemen teks logo, metadata header/footer, copy antarmuka, prompt AI assistant, dan dokumen panduan dari `mify.id` menjadi label nama merek bersih **`mify`**.

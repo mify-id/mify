@@ -276,7 +276,7 @@ export default function Welcome() {
                             {t('welcome.hero_span')}
                         </span>
                         <span className="text-[11px] sm:text-xs text-white/80 font-medium flex items-center gap-1.5 truncate">
-                            Modern Laravel + React Architecture <ArrowRight className="w-3.5 h-3.5 text-brand-lime shrink-0" weight="bold" />
+                            {t('welcome.hero_subspan')} <ArrowRight className="w-3.5 h-3.5 text-brand-lime shrink-0" weight="bold" />
                         </span>
                     </motion.div>
 
