@@ -1,0 +1,288 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../js/**/*.jsx';
+
+@theme {
+    --font-sans: 'Outfit', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Playfair Display', 'Times New Roman', serif;
+
+    --color-brand-blue: #1e4ae9;
+    --color-brand-lime: #b5ff00;
+    --color-brand-dark: #0f172a;
+
+    --radius-brand-card: 1.5rem; /* 24px */
+
+    --animate-scan: scan 2s ease-in-out infinite;
+
+    @keyframes scan {
+        0%, 100% {
+            top: 0%;
+        }
+        50% {
+            top: 100%;
+        }
+    }
+}
+
+/* ==========================================
+   UNIFIED BRAND SYSTEM CLASSES
+   ========================================== */
+
+/* Base Section wrapper to ensure 100% background and rhythm consistency */
+.brand-section {
+    position: relative;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    z-index: 10;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (min-width: 768px) {
+    .brand-section {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+    }
+}
+
+/* Transparency variations */
+.brand-section-transparent {
+    background-color: transparent;
+}
+
+.brand-section-subtle {
+    background-color: rgba(255, 255, 255, 0.015);
+}
+
+/* Bespoke tech-blueprint icon box to replace standard circle slop */
+.brand-icon-box {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Indicator status light inside the icon box representing 'system active' */
+.brand-icon-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-brand-lime);
+    box-shadow: 0 0 8px var(--color-brand-lime);
+    opacity: 0.8;
+}
+
+.brand-icon-box-blue::before {
+    background-color: var(--color-brand-blue);
+    box-shadow: 0 0 8px var(--color-brand-blue);
+}
+
+/* Hover effects */
+.brand-icon-box:hover {
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px);
+}
+
+/* Hardware-accelerated glow container to prevent scroll lag on heavy blur filters */
+.brand-glow {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    z-index: 0;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, filter;
+}
+
+
+
+/* Unified Card Component */
+.brand-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-brand-card);
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-card:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Unified Lime Accent Card Component */
+.brand-card-accent {
+    background-color: rgba(181, 255, 0, 0.04);
+    border: 1px solid rgba(181, 255, 0, 0.15);
+    border-radius: var(--radius-brand-card);
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-card-accent:hover {
+    background-color: rgba(181, 255, 0, 0.08);
+    border-color: rgba(181, 255, 0, 0.35);
+}
+
+/* Unified Panel Component (Forms & Customizers) */
+.brand-panel {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-brand-card);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .brand-panel {
+        padding: 2.5rem;
+    }
+}
+
+/* Unified Form Controls */
+.brand-input {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem; /* 12px */
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem; /* 14px */
+    color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.brand-input:focus {
+    border-color: rgba(181, 255, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Unified Preview Box */
+.brand-preview-box {
+    position: relative;
+    border-radius: var(--radius-brand-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+/* Card Shuffling Animations (Poker Deck Style) */
+.shuffle-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    width: 100%;
+    max-width: 360px;
+    height: 450px;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
+}
+
+/* Card positions when BLUE is active (top) */
+.card-blue-active .card-blue {
+    z-index: 25;
+    transform: translate3d(-50%, 0, 0) rotate(-4deg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+
+.card-blue-active .card-lime {
+    z-index: 15;
+    transform: translate3d(calc(-50% + 24px), 16px, -50px) rotate(4deg) scale(0.95);
+    opacity: 0.75;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Card positions when LIME is active (top) */
+.card-lime-active .card-lime {
+    z-index: 25;
+    transform: translate3d(-50%, 0, 0) rotate(4deg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+
+.card-lime-active .card-blue {
+    z-index: 15;
+    transform: translate3d(calc(-50% - 24px), 16px, -50px) rotate(-4deg) scale(0.95);
+    opacity: 0.75;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Shuffling slide out animations */
+.card-blue-active .card-blue.shuffling-out {
+    transform: translate3d(-140%, -20px, 0) rotate(-18deg) scale(1.02);
+    opacity: 0.5;
+    z-index: 30;
+}
+
+.card-lime-active .card-lime.shuffling-out {
+    transform: translate3d(140%, -20px, 0) rotate(18deg) scale(1.02);
+    opacity: 0.5;
+    z-index: 30;
+}
+
+/* Custom Cursor Hiding for Desktop (Screen size width >= 768px) when custom cursor class is active */
+@media (min-width: 768px) {
+    html.has-custom-cursor, 
+    html.has-custom-cursor body, 
+    html.has-custom-cursor a, 
+    html.has-custom-cursor button, 
+    html.has-custom-cursor input, 
+    html.has-custom-cursor select, 
+    html.has-custom-cursor textarea, 
+    html.has-custom-cursor [role="button"], 
+    html.has-custom-cursor .cursor-pointer {
+        cursor: none !important;
+    }
+}
+
+/* Native CSS Scroll Snap System (Only on desktop screens >= 1024px) */
+.scroll-container {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* smooth momentum scroll on iOS */
+}
+
+.snap-section {
+    position: relative;
+}
+
+@media (min-width: 1024px) {
+    .scroll-container {
+        scroll-snap-type: y mandatory;
+    }
+    .snap-section {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        min-height: 100vh;
+    }
+    /* Ensure the footer snaps nicely at the end */
+    footer {
+        scroll-snap-align: end;
+    }
+}
+
+/* Force global font stack across all elements (including form inputs & buttons) */
+html, body, button, input, select, textarea {
+    font-family: 'Outfit', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
