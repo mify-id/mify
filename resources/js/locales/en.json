@@ -22,7 +22,8 @@
         "active": "Active",
         "offline": "Offline",
         "pos": "POS Cashier",
-        "portfolios": "Portfolio Manager"
+        "portfolios": "Portfolio Manager",
+        "live_preview": "Live Website View"
     },
     "welcome": {
         "nav_home": "Home",

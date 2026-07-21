@@ -16,7 +16,9 @@ import {
     User,
     Shield,
     ShoppingCart,
-    Briefcase
+    Briefcase,
+    Globe,
+    Monitor
 } from '@phosphor-icons/react';
 
 export default function AdminLayout({ children, activeTab = 'overview', title = 'Admin Panel' }) {
@@ -52,6 +54,13 @@ export default function AdminLayout({ children, activeTab = 'overview', title = 
             icon: Briefcase,
             href: route('portfolios.index'),
             badge: 'Live',
+        },
+        {
+            id: 'live_preview',
+            label: t('common.live_preview'),
+            icon: Monitor,
+            href: route('live-preview.index'),
+            badge: 'Site',
         },
         {
             id: 'settings',

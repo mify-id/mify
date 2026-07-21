@@ -22,7 +22,8 @@
         "active": "Aktif",
         "offline": "Offline",
         "pos": "Mesin Kasir POS",
-        "portfolios": "Manajer Portofolio"
+        "portfolios": "Manajer Portofolio",
+        "live_preview": "Tampilan Website Utama"
     },
     "welcome": {
         "nav_home": "Beranda",

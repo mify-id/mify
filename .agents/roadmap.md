@@ -27,6 +27,16 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [22 Juli 2026] - Layar Live Site Overview & Dynamic Device Viewport Switcher
+- **Apa yang dilakukan:**
+  1. **New Admin Navigation Menu:** Menambahkan menu **"Tampilan Website Utama"** / **"Live Website View"** pada sidebar `AdminLayout.jsx` yang mengarah ke rute `/dashboard/live-preview`.
+  2. **Interactive Live Viewport Screen:** Membangun `resources/js/Pages/LivePreview/Index.jsx` yang menyajikan preview interaktif website utama (`/`) dengan fitur:
+     - Switcher ukuran layar real-time (*Desktop 100%*, *Tablet 768px*, *Mobile 375px*).
+     - Live reload iframe preview & tombol pintas buka di tab baru.
+     - Ringkasan statistik jumlah portofolio, brief klien, dan status sistem secara real-time.
+  3. **Verification & Build:** Memverifikasi kompilasi Vite build (`1.12s`) dan 25 suite pengujian otomatis lulus 100%.
+- **File yang terdampak:** `resources/js/Pages/LivePreview/Index.jsx` (new), `routes/web.php`, `resources/js/Layouts/AdminLayout.jsx`, `resources/js/locales/en.json`, `resources/js/locales/id.json`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Pembersihan & Penghapusan Total Modul POS Terminal (`/dashboard/pos`)
 - **Apa yang dilakukan:**
   1. **Penghapusan Berkas & Modul POS:** Menghapus `POSController.php`, 4 Eloquent Model (`PosCategory`, `PosProduct`, `PosOrder`, `PosOrderItem`), migrasi `create_pos_tables.php`, seeder `PosSeeder.php`, serta antarmuka UI React `resources/js/Pages/POS/Index.jsx`.

@@ -73,6 +73,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/portfolios', [\App\Http\Controllers\PortfolioController::class, 'store'])->name('portfolios.store');
     Route::post('/dashboard/portfolios/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'update'])->name('portfolios.update');
     Route::delete('/dashboard/portfolios/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'destroy'])->name('portfolios.destroy');
+
+    // Live Site Overview Screen
+    Route::get('/dashboard/live-preview', function () {
+        return Inertia::render('LivePreview/Index', [
+            'siteUrl' => url('/'),
+            'totalPortfolios' => \App\Models\Portfolio::count(),
+            'totalBriefs' => \App\Models\Brief::count(),
+            'totalPipelines' => \App\Models\Pipeline::count(),
+        ]);
+    })->name('live-preview.index');
 });
 
 require __DIR__.'/auth.php';
