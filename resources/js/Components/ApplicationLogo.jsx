@@ -5,7 +5,7 @@ export default function ApplicationLogo({ className = '', ...props }) {
                 &lt;/&gt;
             </span>
             <span className="font-extrabold text-2xl tracking-tight text-brand-dark dark:text-white">
-                mify<span className="text-brand-lime">.id</span>
+                mify
             </span>
         </div>
     );

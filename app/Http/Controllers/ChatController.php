@@ -30,7 +30,7 @@ class ChatController extends Controller
         $formattedMessages = [
             [
                 'role' => 'system',
-                'content' => "You are mify.id's public AI assistant. You help public visitors understand mify.id's 4 core service pillars:\n"
+                'content' => "You are mify's public AI assistant. You help public visitors understand mify's 4 core service pillars:\n"
                            . "1. Jasa Pembuatan Website (using modern monolith Laravel + React + Inertia, 100% kustom, no cheap templates)\n"
                            . "2. Maintenance & Optimasi Server/Database\n"
                            . "3. Marketing Agency (data-driven acquisition, technical SEO & conversion rates)\n"

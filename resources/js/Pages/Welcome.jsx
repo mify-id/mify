@@ -26,7 +26,7 @@ import {
 // Reusable Instagram-style card component with micro-interactions
 function InstagramCard({ 
     variant = 'blue', 
-    profileName = 'mify.id', 
+    profileName = 'mify', 
     profileSub = 'Sponsored', 
     badges = [], 
     title = '', 

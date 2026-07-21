@@ -27,6 +27,13 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [22 Juli 2026] - Penyederhanaan Label Merek ke `mify` (Tanpa Akhiran Domain .id)
+- **Apa yang dilakukan:**
+  1. **Brand Label Simplification:** Menyederhanakan seluruh elemen teks logo, metadata header/footer, copy antarmuka, prompt AI assistant, dan dokumen panduan dari `mify.id` menjadi label nama merek bersih **`mify`**.
+  2. **Vite & Unit Test Verification:** Memverifikasi kompilasi build aset Vite dan suite pengujian otomatis (`php artisan test`) 100% lulus.
+  3. **Repository Synchronization:** Melakukan commit & push perubahan terbaru ke GitHub remote `https://github.com/mify-id/mify.git`.
+- **File yang terdampak:** `resources/js/Components/ApplicationLogo.jsx`, `resources/js/Layouts/AppLayout.jsx`, `resources/js/Layouts/AdminLayout.jsx`, `resources/js/Layouts/GuestLayout.jsx`, `resources/js/Pages/Welcome.jsx`, `resources/js/locales/en.json`, `resources/js/locales/id.json`, `app/Http/Controllers/BriefController.php`, `app/Http/Controllers/ChatController.php`, `database/seeders/DatabaseSeeder.php`, `.agents/DESIGN.md`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Rebranding Total Proyek ke MiFy (mify.id) & Setup GitHub Remote
 - **Apa yang dilakukan:**
   1. **Comprehensive Rebranding:** Memperbarui seluruh sebutan label, logo teks, default metadata, header, footer, copyright, prompt chatbot AI, dan signature email pitch dari `systemify.id` menjadi **MiFy** (`mify.id`).

@@ -1,14 +1,14 @@
-# DESIGN.md — mify.id Anti-Slop Design Constitution
+# DESIGN.md — mify Anti-Slop Design Constitution
 
 > **Wajib dibaca oleh setiap agent sebelum menyentuh kode UI.**
-> Dokumen ini adalah "taste guide" resmi untuk project mify.id.
+> Dokumen ini adalah "taste guide" resmi untuk project mify.
 > Keberadaannya untuk mencegah output desain yang generik, template-ish, dan tidak berkarakter — yang dikenal sebagai **AI Slop**.
 
 ---
 
 ## 🎯 Design Philosophy
 
-mify.id bukan agensi digital biasa. Visual language-nya harus mencerminkan:
+mify bukan agensi digital biasa. Visual language-nya harus mencerminkan:
 
 - **Precision over decoration** — setiap elemen ada alasannya
 - **Tension by design** — kontras warna yang tajam, bukan harmoni yang membosankan
@@ -249,7 +249,7 @@ group-hover:translate-x-1 → Untuk arrow icon di dalam card
 
 ## 🗣️ Copy Voice & Tone
 
-### Karakteristik Suara mify.id
+### Karakteristik Suara mify
 
 - **Confident, bukan arrogant** — klaim yang bisa dibuktikan dengan stack
 - **Technical, tapi accessible** — menyebut nama teknologi spesifik, bukan abstrak
@@ -314,7 +314,7 @@ Sebelum commit kode UI, jawab pertanyaan ini:
 
 ## 📎 Referensi & Inspirasi
 
-Desain mify.id terinspirasi dari:
+Desain mify terinspirasi dari:
 - **Editorial layout** majalah teknologi premium (Wired, MIT Technology Review)
 - **Stark contrast aesthetics** dari brand Vercel & Linear
 - **Physical badge/sticker** culture dari brand streetwear digital

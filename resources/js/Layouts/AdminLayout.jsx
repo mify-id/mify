@@ -86,7 +86,7 @@ export default function AdminLayout({ children, activeTab = 'overview', title = 
                                 &lt;/&gt;
                             </span>
                             <span className="font-extrabold text-lg tracking-tight text-white">
-                                mify<span className="text-brand-lime">.id</span>
+                                mify
                             </span>
                         </Link>
                         {/* Close button for mobile sidebar */}

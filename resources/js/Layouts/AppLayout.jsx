@@ -7,7 +7,7 @@ import { Chats, X, PaperPlaneRight, Robot, ArrowRight, User } from '@phosphor-ic
 export default function AppLayout({ 
     children, 
     title = '', 
-    description = 'mify.id — Laravel + React + Inertia. We architect digital systems that are precise, fast, and built to your exact specification. No templates.',
+    description = 'mify — Laravel + React + Inertia. We architect digital systems that are precise, fast, and built to your exact specification. No templates.',
     showNav = true,
     showFooter = true,
     containerClassName = 'max-w-7xl mx-auto px-6 py-12 md:py-24 relative z-40'
@@ -90,8 +90,8 @@ export default function AppLayout({
                     id: 1,
                     sender: 'bot',
                     text: locale === 'en' 
-                        ? "Hi! I am the mify.id AI assistant. How can I help you today with Web Development, Maintenance, Marketing, or Engagement Helpers?"
-                        : "Halo! Saya AI assistant mify.id. Ada yang bisa saya bantu hari ini terkait Jasa Pembuatan Website, Maintenance, Marketing, atau Engagement Helper?"
+                        ? "Hi! I am the mify AI assistant. How can I help you today with Web Development, Maintenance, Marketing, or Engagement Helpers?"
+                        : "Halo! Saya AI assistant mify. Ada yang bisa saya bantu hari ini terkait Jasa Pembuatan Website, Maintenance, Marketing, atau Engagement Helper?"
                 }
             ]);
         }, 1500);
@@ -174,8 +174,8 @@ export default function AppLayout({
                     : "Untuk memulai, silakan isi formulir Client Brief di bagian bawah halaman agensi kami. Arsitek sistem kami akan menganalisis kebutuhan Anda dan mengirimkan proposal penawaran khusus.";
             } else {
                 reply = locale === 'en'
-                    ? "I'm here to answer questions about mify.id's services: Web Development, Maintenance, Marketing Agency, and Engagement Helpers. Ask me anything!"
-                    : "Saya siap membantu Anda memahami layanan mify.id: Jasa Pembuatan Website, Maintenance, Marketing Agency, dan Engagement Helper. Ajukan pertanyaan Anda!";
+                    ? "I'm here to answer questions about mify's services: Web Development, Maintenance, Marketing Agency, and Engagement Helpers. Ask me anything!"
+                    : "Saya siap membantu Anda memahami layanan mify: Jasa Pembuatan Website, Maintenance, Marketing Agency, dan Engagement Helper. Ajukan pertanyaan Anda!";
             }
             
             setMessages(prev => [...prev, {
@@ -197,7 +197,7 @@ export default function AppLayout({
     return (
         <>
             <Head>
-                <title>{title ? `${title} | mify.id` : 'mify.id | Modern Digital Architecture & Agency'}</title>
+                <title>{title ? `${title} | mify` : 'mify | Modern Digital Architecture & Agency'}</title>
                 <meta name="description" content={description} />
             </Head>
 
@@ -234,7 +234,7 @@ export default function AppLayout({
                                 &lt;/&gt;
                             </span>
                             <span className="font-extrabold text-2xl tracking-tight text-white group-hover:text-brand-lime transition-colors">
-                                mify<span className="text-brand-lime">.id</span>
+                                mify
                             </span>
                             {/* Status dot — bukan dekorasi, menunjukkan system online/live */}
                             <span
@@ -284,12 +284,12 @@ export default function AppLayout({
                                     &lt;/&gt;
                                 </span>
                                 <span className="font-extrabold text-lg text-white">
-                                    mify<span className="text-brand-lime">.id</span>
+                                    mify
                                 </span>
                             </div>
 
                             <p className="text-xs text-white/40">
-                                © {new Date().getFullYear()} mify.id. All rights reserved. Built with Laravel, React 19, and Tailwind CSS v4.
+                                © {new Date().getFullYear()} mify. All rights reserved. Built with Laravel, React 19, and Tailwind CSS v4.
                             </p>
 
                             <div className="flex gap-6 text-xs text-white/60">
@@ -321,7 +321,7 @@ export default function AppLayout({
                                                 <Robot size={20} weight="duotone" />
                                             </div>
                                             <div>
-                                                <h4 className="text-sm font-bold text-white tracking-wide">mify.id Assistant</h4>
+                                                <h4 className="text-sm font-bold text-white tracking-wide">mify Assistant</h4>
                                                 <div className="flex items-center gap-1.5 mt-0.5">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-brand-lime animate-ping" />
                                                     <span className="text-[10px] text-white/50 font-medium">Online & Ready</span>

@@ -173,7 +173,7 @@ class BriefController extends Controller
         $blueprintData = null;
         $usedAi = false;
 
-        $prompt = "You are mify.id's AI System Architect Engine.
+        $prompt = "You are mify's AI System Architect Engine.
 Analyze the following client brief and generate a comprehensive digital system blueprint.
 
 CLIENT NAME: {$brief->name}
@@ -336,7 +336,7 @@ IMPORTANT:
             
             $pitch .= "We would love to jump on a quick discovery call to walk you through this architecture and discuss the implementation timeline. Let us know what time works best for you next week!\n\n";
             $pitch .= "Best regards,\n";
-            $pitch .= "The mify.id Architecture Team";
+            $pitch .= "The mify Architecture Team";
 
             $timeline = [
                 [

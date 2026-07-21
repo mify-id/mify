@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         AuditLog::create([
-            'event' => 'Admin mify.id session started',
+            'event' => 'Admin mify session started',
             'ip' => '127.0.0.1',
             'created_at' => now()->subMinutes(10),
         ]);

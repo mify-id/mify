@@ -26,7 +26,7 @@ export default function GuestLayout({ children }) {
                             &lt;/&gt;
                         </span>
                         <span className="font-extrabold text-2xl tracking-tight text-white group-hover:text-brand-lime transition-colors">
-                            mify<span className="text-brand-lime">.id</span>
+                            mify
                         </span>
                     </div>
                 </Link>
