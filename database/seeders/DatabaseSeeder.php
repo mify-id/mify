@@ -113,7 +113,5 @@ class DatabaseSeeder extends Seeder
             'ip' => 'Internal Engine',
             'created_at' => now()->subMinutes(5),
         ]);
-
-        $this->call(PosSeeder::class);
     }
 }

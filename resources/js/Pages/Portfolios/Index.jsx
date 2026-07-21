@@ -381,7 +381,7 @@ export default function PortfoliosIndex({ portfolios = [], categories = [] }) {
                                         className="w-full bg-brand-dark border border-white/15 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-lime"
                                     >
                                         <option value="Web System">Web System</option>
-                                        <option value="POS Cashier">POS Cashier</option>
+                                        <option value="Mobile App">Mobile App</option>
                                         <option value="AI Automation">AI Automation</option>
                                         <option value="Marketing System">Marketing System</option>
                                         <option value="E-Commerce">E-Commerce</option>

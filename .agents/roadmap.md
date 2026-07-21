@@ -27,6 +27,13 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [22 Juli 2026] - Pembersihan & Penghapusan Total Modul POS Terminal (`/dashboard/pos`)
+- **Apa yang dilakukan:**
+  1. **Penghapusan Berkas & Modul POS:** Menghapus `POSController.php`, 4 Eloquent Model (`PosCategory`, `PosProduct`, `PosOrder`, `PosOrderItem`), migrasi `create_pos_tables.php`, seeder `PosSeeder.php`, serta antarmuka UI React `resources/js/Pages/POS/Index.jsx`.
+  2. **Clean-up Rute & Navigasi:** Menghapus rute `/dashboard/pos` pada `web.php` dan item navigasi POS dari sidebar `AdminLayout.jsx`.
+  3. **Database Fresh & Verification:** Menjalankan `php artisan migrate:fresh --seed`, menguji kompilasi Vite build (`733ms`), dan memastikan 25 suite pengujian otomatis lulus bersih tanpa eror.
+- **File yang terdampak:** `app/Http/Controllers/POSController.php` (deleted), `app/Models/Pos*` (deleted), `database/migrations/*_create_pos_tables.php` (deleted), `database/seeders/PosSeeder.php` (deleted), `resources/js/Pages/POS/` (deleted), `routes/web.php`, `resources/js/Layouts/AdminLayout.jsx`, `database/seeders/DatabaseSeeder.php`, `database/seeders/PortfolioSeeder.php`, `app/Http/Controllers/PortfolioController.php`, `resources/js/Pages/Portfolios/Index.jsx`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Pengalaman Admin Management Portofolio & Section Portfolio Showcase Landing Page
 - **Apa yang dilakukan:**
   1. **Database & Model Portfolio:** Membuat migrasi `portfolios`, model `Portfolio.php` dengan *accessor* `image_url` otomatis, dan seeder `PortfolioSeeder.php` berisi 4 proyek sampel berkualitas tinggi (Web System, POS Cashier, AI Automation, Marketing System).

@@ -19,7 +19,7 @@ class PortfolioSeeder extends Seeder
                 'category' => 'POS Cashier',
                 'description' => 'Real-time retail point of sale system with pessimistic inventory locking, instant barcode scanning, and SQLite ACID transaction safety.',
                 'image_path' => 'https://images.unsplash.com/photo-1556742049-0a6754099a6b?auto=format&fit=crop&w=1200&q=80',
-                'project_url' => 'https://mify.id/dashboard/pos',
+                'project_url' => 'https://mify.id',
                 'tech_stack' => ['Laravel 13', 'React 19', 'Inertia.js', 'Tailwind CSS'],
                 'is_featured' => true,
                 'order' => 1,

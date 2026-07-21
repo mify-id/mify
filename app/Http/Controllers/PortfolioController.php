@@ -18,7 +18,7 @@ class PortfolioController extends Controller
     {
         return Inertia::render('Portfolios/Index', [
             'portfolios' => Portfolio::orderBy('order', 'asc')->latest()->get(),
-            'categories' => ['Web System', 'POS Cashier', 'AI Automation', 'Marketing System', 'E-Commerce'],
+            'categories' => ['Web System', 'Mobile App', 'AI Automation', 'Marketing System', 'E-Commerce'],
         ]);
     }
 

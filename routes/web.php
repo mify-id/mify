@@ -68,11 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/dashboard/pipelines/{pipeline}', [\App\Http\Controllers\PipelineController::class, 'update'])->name('pipelines.update');
     Route::delete('/dashboard/pipelines/{pipeline}', [\App\Http\Controllers\PipelineController::class, 'destroy'])->name('pipelines.destroy');
 
-    // POS actions
-    Route::get('/dashboard/pos', [\App\Http\Controllers\POSController::class, 'index'])->name('pos.index');
-    Route::get('/dashboard/pos/data', [\App\Http\Controllers\POSController::class, 'getData'])->name('pos.data');
-    Route::post('/dashboard/pos/checkout', [\App\Http\Controllers\POSController::class, 'checkout'])->name('pos.checkout');
-
     // Portfolio actions
     Route::get('/dashboard/portfolios', [\App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
     Route::post('/dashboard/portfolios', [\App\Http\Controllers\PortfolioController::class, 'store'])->name('portfolios.store');

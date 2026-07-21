@@ -47,13 +47,6 @@ export default function AdminLayout({ children, activeTab = 'overview', title = 
             badge: 'New',
         },
         {
-            id: 'pos',
-            label: t('common.pos'),
-            icon: ShoppingCart,
-            href: route('pos.index'),
-            badge: 'Beta',
-        },
-        {
             id: 'portfolios',
             label: t('common.portfolios'),
             icon: Briefcase,
