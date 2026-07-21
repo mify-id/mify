@@ -15,7 +15,8 @@ import {
     Circle, 
     User,
     Shield,
-    ShoppingCart
+    ShoppingCart,
+    Briefcase
 } from '@phosphor-icons/react';
 
 export default function AdminLayout({ children, activeTab = 'overview', title = 'Admin Panel' }) {
@@ -51,6 +52,13 @@ export default function AdminLayout({ children, activeTab = 'overview', title = 
             icon: ShoppingCart,
             href: route('pos.index'),
             badge: 'Beta',
+        },
+        {
+            id: 'portfolios',
+            label: t('common.portfolios'),
+            icon: Briefcase,
+            href: route('portfolios.index'),
+            badge: 'Live',
         },
         {
             id: 'settings',

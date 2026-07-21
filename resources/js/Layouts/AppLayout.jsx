@@ -247,6 +247,7 @@ export default function AppLayout({
                         {/* Navigation Links */}
                         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
                             <Link href="/#services" className="text-white/70 hover:text-white transition-colors">{t('welcome.nav_services')}</Link>
+                            <Link href="/#portfolio" className="text-white/70 hover:text-white transition-colors">{t('welcome.nav_portfolio')}</Link>
                             <Link href="/#about" className="text-white/70 hover:text-white transition-colors">{t('welcome.nav_about')}</Link>
                             <Link href="/#contact" className="text-white/70 hover:text-white transition-colors">{t('welcome.nav_contact')}</Link>
                         </nav>

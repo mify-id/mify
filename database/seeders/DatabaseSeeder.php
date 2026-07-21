@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        $this->call(PortfolioSeeder::class);
+
         Brief::create([
             'name' => 'Hendra Wijaya',
             'email' => 'hendra@nusantara.co.id',

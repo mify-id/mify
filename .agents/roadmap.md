@@ -27,6 +27,15 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [22 Juli 2026] - Pengalaman Admin Management Portofolio & Section Portfolio Showcase Landing Page
+- **Apa yang dilakukan:**
+  1. **Database & Model Portfolio:** Membuat migrasi `portfolios`, model `Portfolio.php` dengan *accessor* `image_url` otomatis, dan seeder `PortfolioSeeder.php` berisi 4 proyek sampel berkualitas tinggi (Web System, POS Cashier, AI Automation, Marketing System).
+  2. **Backend Controller & Storage:** Membuat `PortfolioController.php` untuk menangani CRUD lengkap proyek portofolio, didukung pengunggahan gambar lokal ke `storage/app/public/portfolios`.
+  3. **Admin Panel UI & Sidebar:** Menambahkan menu **"Portofolio"** pada sidebar `AdminLayout.jsx`, serta membangun halaman Admin `Portfolios/Index.jsx` dengan fitur Grid Proyek, Search & Filter Kategori, Toggle Featured Status, serta Modal Form Tambah/Edit dengan **Drag-and-Drop Image Upload & Live Image Preview**.
+  4. **Landing Page Showcase:** Merancang **Portfolio Showcase Section** di `Welcome.jsx` dengan Bento Grid interaktif, tab filter kategori, badge tech stack, dan link demo langsung.
+  5. **Verification & Test Suite:** Memverifikasi kompilasi Vite build (`873ms`) dan 25 suite pengujian otomatis lulus bersih.
+- **File yang terdampak:** `database/migrations/2026_07_22_100000_create_portfolios_table.php`, `app/Models/Portfolio.php`, `database/seeders/PortfolioSeeder.php`, `database/seeders/DatabaseSeeder.php`, `app/Http/Controllers/PortfolioController.php`, `routes/web.php`, `resources/js/Pages/Portfolios/Index.jsx`, `resources/js/Pages/Welcome.jsx`, `resources/js/Layouts/AdminLayout.jsx`, `resources/js/Layouts/AppLayout.jsx`, `resources/js/locales/en.json`, `resources/js/locales/id.json`, `tests/Feature/ExampleTest.php`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Penyempurnaan Tagline Eyebrow Pill Hero (User-Friendly & Value-Driven)
 - **Apa yang dilakukan:**
   1. **Anti-Jargon Copywriting Update:** Mengganti frasa teknis rumit *"Modern Laravel + React Architecture"* pada badge Hero Section dengan frasa nilai bisnis yang ramah awam:

@@ -6,11 +6,17 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    $portfolios = [];
+    if (\Illuminate\Support\Facades\Schema::hasTable('portfolios')) {
+        $portfolios = \App\Models\Portfolio::where('is_featured', true)->orderBy('order', 'asc')->latest()->get();
+    }
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'portfolios' => $portfolios,
     ]);
 });
 
@@ -66,6 +72,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/pos', [\App\Http\Controllers\POSController::class, 'index'])->name('pos.index');
     Route::get('/dashboard/pos/data', [\App\Http\Controllers\POSController::class, 'getData'])->name('pos.data');
     Route::post('/dashboard/pos/checkout', [\App\Http\Controllers\POSController::class, 'checkout'])->name('pos.checkout');
+
+    // Portfolio actions
+    Route::get('/dashboard/portfolios', [\App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
+    Route::post('/dashboard/portfolios', [\App\Http\Controllers\PortfolioController::class, 'store'])->name('portfolios.store');
+    Route::post('/dashboard/portfolios/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'update'])->name('portfolios.update');
+    Route::delete('/dashboard/portfolios/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'destroy'])->name('portfolios.destroy');
 });
 
 require __DIR__.'/auth.php';

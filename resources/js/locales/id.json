@@ -20,11 +20,14 @@
         "discussion": "Diskusi",
         "pending": "Menunggu",
         "active": "Aktif",
-        "offline": "Offline"
+        "offline": "Offline",
+        "pos": "Mesin Kasir POS",
+        "portfolios": "Manajer Portofolio"
     },
     "welcome": {
         "nav_home": "Beranda",
         "nav_services": "Layanan",
+        "nav_portfolio": "Portofolio",
         "nav_playground": "Playground",
         "nav_about": "Tentang",
         "nav_contact": "Kontak",

@@ -18,9 +18,10 @@ import {
     Plus, 
     Gear, 
     CheckCircle,
-    Globe,
     Chats,
-    Wrench
+    Globe,
+    Briefcase,
+    Eye
 } from '@phosphor-icons/react';
 
 // Reusable Instagram-style card component with micro-interactions
@@ -198,8 +199,10 @@ function InstagramCard({
     );
 }
 
-export default function Welcome() {
+export default function Welcome({ portfolios = [] }) {
     const { t } = useTranslation();
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [activeModalProject, setActiveModalProject] = useState(null);
     const [contactSubmitted, setContactSubmitted] = useState(false);
     const { data: formData, setData: setFormData, post, processing, reset } = useForm({
         name: '',
@@ -518,6 +521,142 @@ export default function Welcome() {
                         </motion.div>
 
                     </div>
+                </div>
+            </section>
+
+            {/* Portfolio Showcase Section */}
+            <section id="portfolio" className="snap-section brand-section min-h-screen flex items-center w-full relative z-30">
+                <div className="max-w-7xl mx-auto px-6 w-full">
+                    {/* Header */}
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            className="flex flex-col gap-3 max-w-xl"
+                        >
+                            <div className="flex items-center gap-2 text-brand-lime text-xs font-black uppercase tracking-widest">
+                                <Briefcase className="w-4 h-4" weight="bold" />
+                                <span>Portfolio Showcase</span>
+                            </div>
+                            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                                Featured Projects & <span className="font-serif italic font-normal text-brand-lime">Engineering</span>
+                            </h2>
+                            <p className="text-white/70 text-sm leading-relaxed">
+                                Real-world digital systems, high-velocity POS engines, and autonomous AI tools crafted to exact client specifications.
+                            </p>
+                        </motion.div>
+
+                        {/* Category Filter Tabs */}
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                            className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none"
+                        >
+                            {['All', 'Web System', 'POS Cashier', 'AI Automation', 'Marketing System'].map(cat => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setSelectedCategory(cat)}
+                                    className={`px-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-300 ${
+                                        selectedCategory === cat
+                                            ? 'bg-brand-lime text-brand-dark shadow-lg shadow-brand-lime/20 scale-105'
+                                            : 'bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                                    }`}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </motion.div>
+                    </div>
+
+                    {/* Portfolio Grid */}
+                    {portfolios.length === 0 ? (
+                        <div className="text-center py-20 bg-white/5 rounded-3xl border border-white/10">
+                            <Briefcase className="w-12 h-12 text-white/20 mx-auto mb-3" weight="duotone" />
+                            <p className="text-sm text-white/60">No portfolio projects available yet. Stay tuned!</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {portfolios
+                                .filter(p => selectedCategory === 'All' || p.category === selectedCategory)
+                                .map((project, index) => (
+                                    <motion.div
+                                        key={project.id}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                                        className="brand-card group hover:border-brand-blue/50 flex flex-col justify-between overflow-hidden p-0"
+                                    >
+                                        {/* Project Cover Image */}
+                                        <div className="relative h-56 w-full overflow-hidden bg-brand-dark/80">
+                                            <img 
+                                                src={project.image_url} 
+                                                alt={project.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/30 to-transparent opacity-90" />
+                                            
+                                            <span className="absolute top-4 left-4 bg-brand-lime text-brand-dark font-black text-[10px] uppercase tracking-widest px-2.5 py-1 rounded shadow-md">
+                                                {project.category}
+                                            </span>
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                            <div className="space-y-2">
+                                                <h3 className="text-xl font-bold tracking-tight text-white group-hover:text-brand-lime transition-colors">
+                                                    {project.title}
+                                                </h3>
+                                                <p className="text-xs text-white/70 leading-relaxed line-clamp-3">
+                                                    {project.description}
+                                                </p>
+                                            </div>
+
+                                            {/* Tech Stack */}
+                                            {Array.isArray(project.tech_stack) && project.tech_stack.length > 0 && (
+                                                <div className="flex flex-wrap gap-1.5 pt-2">
+                                                    {project.tech_stack.map((tech, i) => (
+                                                        <span 
+                                                            key={i}
+                                                            className="bg-white/5 border border-white/10 text-white/80 text-[10px] px-2.5 py-0.5 rounded font-mono"
+                                                        >
+                                                            {tech}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                            {/* Actions */}
+                                            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                                                {project.project_url ? (
+                                                    <a 
+                                                        href={project.project_url}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-lime hover:underline group-hover:translate-x-0.5 transition-transform"
+                                                    >
+                                                        <span>Visit Demo</span>
+                                                        <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+                                                    </a>
+                                                ) : (
+                                                    <button 
+                                                        onClick={() => setActiveModalProject(project)}
+                                                        className="inline-flex items-center gap-1.5 text-xs font-bold text-white/80 hover:text-brand-lime transition-colors"
+                                                    >
+                                                        <Eye className="w-3.5 h-3.5" />
+                                                        <span>Preview Details</span>
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                        </div>
+                    )}
                 </div>
             </section>
 

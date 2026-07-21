@@ -22,11 +22,12 @@
         "active": "Active",
         "offline": "Offline",
         "pos": "POS Cashier",
-        "pos": "POS Cashier"
+        "portfolios": "Portfolio Manager"
     },
     "welcome": {
         "nav_home": "Home",
         "nav_services": "Services",
+        "nav_portfolio": "Portfolio",
         "nav_playground": "Playground",
         "nav_about": "About",
         "nav_contact": "Contact",
