@@ -21,5 +21,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+
+        // Fail-safe auto-create SQLite database file for fresh cloud deployments
+        if (config('database.default') === 'sqlite') {
+            $dbPath = config('database.connections.sqlite.database');
+            if ($dbPath && !file_exists($dbPath) && $dbPath !== ':memory:') {
+                @mkdir(dirname($dbPath), 0755, true);
+                @touch($dbPath);
+            }
+        }
     }
 }
