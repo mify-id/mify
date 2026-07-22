@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { usePage, Link, Head } from '@inertiajs/react';
 import { useTranslation } from '@/Contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Chats, X, PaperPlaneRight, Robot, ArrowRight, User } from '@phosphor-icons/react';
+import { ArrowRight } from '@phosphor-icons/react';
 
 export default function AppLayout({ 
     children, 
@@ -18,181 +18,9 @@ export default function AppLayout({
     const auth = props.auth || { user: null };
     const { locale, toggleLocale, t } = useTranslation();
 
-    // AI Chat FAB State
-    const [showFab, setShowFab] = useState(false);
-    const [chatOpen, setChatOpen] = useState(false);
-    const [messages, setMessages] = useState([]);
-    const [inputMessage, setInputMessage] = useState('');
-    const [isTyping, setIsTyping] = useState(false);
-    const chatEndRef = useRef(null);
 
-    // Audio synthesizer helper using Web Audio API (No files needed, completely dynamic)
-    const playChime = () => {
-        try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            const ctx = new AudioContext();
-            const osc1 = ctx.createOscillator();
-            const osc2 = ctx.createOscillator();
-            const gainNode = ctx.createGain();
-            
-            osc1.connect(gainNode);
-            osc2.connect(gainNode);
-            gainNode.connect(ctx.destination);
-            
-            osc1.type = 'sine';
-            osc2.type = 'sine';
-            
-            const now = ctx.currentTime;
-            osc1.frequency.setValueAtTime(523.25, now); // C5
-            osc2.frequency.setValueAtTime(659.25, now + 0.08); // E5
-            
-            gainNode.gain.setValueAtTime(0, now);
-            gainNode.gain.linearRampToValueAtTime(0.12, now + 0.02);
-            gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
-            
-            osc1.start(now);
-            osc1.stop(now + 0.35);
-            osc2.start(now + 0.08);
-            osc2.stop(now + 0.35);
-        } catch (e) {
-            console.warn("AudioContext block:", e);
-        }
-    };
 
-    const playSentSound = () => {
-        try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            const ctx = new AudioContext();
-            const osc = ctx.createOscillator();
-            const gainNode = ctx.createGain();
-            osc.connect(gainNode);
-            gainNode.connect(ctx.destination);
-            osc.type = 'sine';
-            const now = ctx.currentTime;
-            osc.frequency.setValueAtTime(392.00, now); // G4
-            osc.frequency.exponentialRampToValueAtTime(523.25, now + 0.12); // C5
-            gainNode.gain.setValueAtTime(0.1, now);
-            gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
-            osc.start(now);
-            osc.stop(now + 0.15);
-        } catch (e) {}
-    };
 
-    // FAB entrance timer
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowFab(true);
-            playChime();
-            setMessages([
-                {
-                    id: 1,
-                    sender: 'bot',
-                    text: locale === 'en' 
-                        ? "Hi! I am the mify AI assistant. How can I help you today with Web Development, Maintenance, Marketing, or Engagement Helpers?"
-                        : "Halo! Saya AI assistant mify. Ada yang bisa saya bantu hari ini terkait Jasa Pembuatan Website, Maintenance, Marketing, atau Engagement Helper?"
-                }
-            ]);
-        }, 1500);
-        return () => clearTimeout(timer);
-    }, [locale]);
-
-    // Scroll chat window to bottom
-    useEffect(() => {
-        if (chatEndRef.current) {
-            chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [messages, isTyping]);
-
-    const handleSendMessage = (textToSend = null) => {
-        const text = textToSend || inputMessage;
-        if (!text.trim()) return;
-
-        const userMsg = {
-            id: Date.now(),
-            sender: 'user',
-            text: text
-        };
-        const updatedMessages = [...messages, userMsg];
-        setMessages(updatedMessages);
-        if (!textToSend) setInputMessage('');
-        
-        playSentSound();
-        setIsTyping(true);
-
-        const apiMessages = updatedMessages.map(m => ({
-            sender: m.sender,
-            text: m.text
-        }));
-
-        fetch(route('chat.handle'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-            },
-            body: JSON.stringify({ messages: apiMessages })
-        })
-        .then(res => {
-            if (!res.ok) throw new Error('API Error');
-            return res.json();
-        })
-        .then(data => {
-            setMessages(prev => [...prev, {
-                id: Date.now(),
-                sender: 'bot',
-                text: data.reply
-            }]);
-            playChime();
-        })
-        .catch(err => {
-            console.error("Chat API error:", err);
-            // Graceful fallback to local mock response
-            let reply = '';
-            const lowerText = text.toLowerCase();
-            
-            if (lowerText.includes('web') || lowerText.includes('website') || lowerText.includes('dev') || lowerText.includes('buat')) {
-                reply = locale === 'en'
-                    ? "We engineer high-end websites using Laravel, React, and Inertia.js. High-performance monolithic architectures, search optimized, and built to your exact business specifications."
-                    : "Kami membangun website kustom premium menggunakan stack Laravel + React + Inertia.js. Sistem kami dirancang tanpa loading lag, tanpa template instan, dan 100% dioptimalkan untuk SEO dan kecepatan.";
-            } else if (lowerText.includes('maintenance') || lowerText.includes('rawat') || lowerText.includes('server') || lowerText.includes('cache')) {
-                reply = locale === 'en'
-                    ? "Our Maintenance service includes server monitoring, database tuning, security patch updates, and automated cache purges to keep your systems operating 24/7."
-                    : "Layanan Maintenance kami meliputi pemantauan berkala kesehatan server, optimasi kueri database, pembaruan keamanan, serta pembersihan cache berkala agar sistem Anda selalu responsif.";
-            } else if (lowerText.includes('marketing') || lowerText.includes('agency') || lowerText.includes('seo') || lowerText.includes('promosi')) {
-                reply = locale === 'en'
-                    ? "As a Marketing Agency, we build data-driven acquisition pipelines, technical SEO content systems, and page conversion structures to turn user visits into actual sales."
-                    : "Sebagai Marketing Agency, kami menyusun corong akuisisi pengunjung berbasis data, optimasi arsitektur SEO teknikal, serta penyesuaian copywriting konversi halaman untuk meningkatkan omzet penjualan.";
-            } else if (lowerText.includes('engagement') || lowerText.includes('helper') || lowerText.includes('bot') || lowerText.includes('whatsapp') || lowerText.includes('wa')) {
-                reply = locale === 'en'
-                    ? "The Engagement Helper suite integrates custom WhatsApp AI assistants, automated lead qualification routines, and smart CRM follow-ups to engage and secure customer leads instantly."
-                    : "Engagement Helper merupakan otomasi asisten pintar seperti bot WhatsApp AI, kualifikasi prospek otomatis, dan integrasi CRM yang membalas dan menindaklanjuti calon klien secara instan.";
-            } else if (lowerText.includes('mulai') || lowerText.includes('start') || lowerText.includes('order') || lowerText.includes('hubung') || lowerText.includes('kontak')) {
-                reply = locale === 'en'
-                    ? "To get started, simply scroll down and fill out our client brief contact form. Our digital systems architects will analyze your requirements and get back to you with a tailor-made proposal."
-                    : "Untuk memulai, silakan isi formulir Client Brief di bagian bawah halaman agensi kami. Arsitek sistem kami akan menganalisis kebutuhan Anda dan mengirimkan proposal penawaran khusus.";
-            } else {
-                reply = locale === 'en'
-                    ? "I'm here to answer questions about mify's services: Web Development, Maintenance, Marketing Agency, and Engagement Helpers. Ask me anything!"
-                    : "Saya siap membantu Anda memahami layanan mify: Jasa Pembuatan Website, Maintenance, Marketing Agency, dan Engagement Helper. Ajukan pertanyaan Anda!";
-            }
-            
-            setMessages(prev => [...prev, {
-                id: Date.now() + 1,
-                sender: 'bot',
-                text: reply
-            }]);
-            playChime();
-        })
-        .finally(() => {
-            setIsTyping(false);
-        });
-    };
-
-    const quickSuggestions = locale === 'en' 
-        ? ["Web Development", "Maintenance & Server", "Marketing Agency", "Engagement Helper"]
-        : ["Pembuatan Website", "Maintenance & Server", "Marketing Agency", "Engagement Helper"];
 
     return (
         <>
@@ -212,7 +40,7 @@ export default function AppLayout({
 
                 {/* Lapis 1: Subtle noise texture overlay — fixed to viewport for high performance (octaves=1) */}
                 <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.03]"
-                    style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }}
+                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }}
                 />
 
                 {/* Lapis 2: Brand glow — diakselerasi GPU (.brand-glow) untuk mencegah lag scrolling */}
@@ -231,7 +59,7 @@ export default function AppLayout({
                         <Link href="/" className="flex items-center gap-2 group">
                             {/* Logo: code bracket mark — identitas teknis, bukan letter S biasa */}
                             <span className="w-8 h-8 rounded-xl bg-brand-lime flex items-center justify-center text-brand-dark font-black text-sm shadow-lg group-hover:rotate-6 transition-transform duration-300 tracking-tighter font-mono select-none">
-                                &lt;/&gt;
+                                {"</>"}
                             </span>
                             <span className="font-extrabold text-2xl tracking-tight text-white group-hover:text-brand-lime transition-colors">
                                 mify
@@ -282,7 +110,7 @@ export default function AppLayout({
                         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
                             <div className="flex items-center gap-2">
                                 <span className="w-6 h-6 rounded-lg bg-brand-lime flex items-center justify-center text-brand-dark font-black text-xs font-mono">
-                                    &lt;/&gt;
+                                    {"</>"}
                                 </span>
                                 <span className="font-extrabold text-lg text-white">
                                     mify
@@ -301,147 +129,6 @@ export default function AppLayout({
                         </div>
                     </footer>
                 )}
-
-                {/* AI Chatbot FAB and Floating Panel */}
-                <AnimatePresence>
-                    {showFab && (
-                        <>
-                            {/* Chat Window Panel */}
-                            {chatOpen && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                                    className="fixed bottom-24 right-6 md:right-8 w-[calc(100vw-3rem)] sm:w-[380px] h-[480px] bg-brand-dark/95 backdrop-blur-md border border-white/10 rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 flex flex-col overflow-hidden"
-                                >
-                                    {/* Chat Header */}
-                                    <div className="p-4 bg-brand-dark border-b border-white/5 flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-xl bg-brand-lime/10 border border-brand-lime/20 flex items-center justify-center text-brand-lime">
-                                                <Robot size={20} weight="duotone" />
-                                            </div>
-                                            <div>
-                                                <h4 className="text-sm font-bold text-white tracking-wide">mify Assistant</h4>
-                                                <div className="flex items-center gap-1.5 mt-0.5">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-lime animate-ping" />
-                                                    <span className="text-[10px] text-white/50 font-medium">Online & Ready</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button 
-                                            onClick={() => setChatOpen(false)}
-                                            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
-                                        >
-                                            <X size={16} />
-                                        </button>
-                                    </div>
-
-                                    {/* Message History */}
-                                    <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
-                                        {messages.map((msg) => (
-                                            <div 
-                                                key={msg.id}
-                                                className={`flex gap-2 max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
-                                            >
-                                                <div className={`w-7 h-7 rounded-lg shrink-0 flex items-center justify-center text-xs
-                                                    ${msg.sender === 'user' 
-                                                        ? 'bg-brand-blue text-white' 
-                                                        : 'bg-white/5 text-brand-lime border border-white/5'
-                                                    }`}
-                                                >
-                                                    {msg.sender === 'user' ? <User size={14} /> : <Robot size={14} />}
-                                                </div>
-                                                <div className={`p-3 rounded-2xl text-xs leading-relaxed
-                                                    ${msg.sender === 'user' 
-                                                        ? 'bg-brand-blue text-white rounded-tr-none' 
-                                                        : 'bg-white/5 text-white/90 border border-white/5 rounded-tl-none'
-                                                    }`}
-                                                >
-                                                    {msg.text}
-                                                </div>
-                                            </div>
-                                        ))}
-
-                                        {isTyping && (
-                                            <div className="flex gap-2 max-w-[85%]">
-                                                <div className="w-7 h-7 rounded-lg shrink-0 bg-white/5 text-brand-lime border border-white/5 flex items-center justify-center">
-                                                    <Robot size={14} />
-                                                </div>
-                                                <div className="bg-white/5 border border-white/5 text-white/90 p-3 rounded-2xl rounded-tl-none text-xs flex items-center gap-1">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: '0ms' }} />
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: '150ms' }} />
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: '300ms' }} />
-                                                </div>
-                                            </div>
-                                        )}
-                                        <div ref={chatEndRef} />
-                                    </div>
-
-                                    {/* Quick suggestion bubbles */}
-                                    <div className="px-4 py-2 bg-brand-dark/40 border-t border-white/5 overflow-x-auto flex gap-2 no-scrollbar">
-                                        {quickSuggestions.map((suggestion, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => handleSendMessage(suggestion)}
-                                                className="shrink-0 px-3 py-1.5 rounded-full bg-white/5 hover:bg-brand-lime/10 border border-white/5 hover:border-brand-lime/20 text-[10px] text-white/70 hover:text-brand-lime transition-all cursor-pointer whitespace-nowrap"
-                                            >
-                                                {suggestion}
-                                            </button>
-                                        ))}
-                                    </div>
-
-                                    {/* Chat Input form */}
-                                    <form 
-                                        onSubmit={(e) => {
-                                            e.preventDefault();
-                                            handleSendMessage();
-                                        }}
-                                        className="p-3 bg-brand-dark border-t border-white/5 flex gap-2"
-                                    >
-                                        <input 
-                                            type="text"
-                                            value={inputMessage}
-                                            onChange={(e) => setInputMessage(e.target.value)}
-                                            placeholder={locale === 'en' ? "Ask about our services..." : "Tanyakan tentang layanan..."}
-                                            className="flex-1 bg-white/5 border border-white/5 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-lime/50 transition-colors"
-                                        />
-                                        <button 
-                                            type="submit"
-                                            className="w-9 h-9 rounded-xl bg-brand-lime text-brand-dark flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-lg"
-                                        >
-                                            <PaperPlaneRight size={16} weight="bold" />
-                                        </button>
-                                    </form>
-                                </motion.div>
-                            )}
-
-                            {/* FAB Floating Button */}
-                            <motion.button
-                                initial={{ opacity: 0, y: 40, scale: 0.85 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: 40, scale: 0.85 }}
-                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => {
-                                    setChatOpen(!chatOpen);
-                                    playChime();
-                                }}
-                                className="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-14 h-14 md:w-16 md:h-16 rounded-full bg-brand-dark border border-brand-lime/30 hover:border-brand-lime/60 text-brand-lime flex items-center justify-center cursor-pointer shadow-[0_0_20px_rgba(181,255,0,0.15)] hover:shadow-[0_0_30px_rgba(181,255,0,0.3)] transition-all z-50 group"
-                                aria-label="AI Chatbot Assistant"
-                            >
-                                <div className="relative">
-                                    <Chats size={28} weight="duotone" className="group-hover:rotate-6 transition-transform" />
-                                    {/* Active notification indicator */}
-                                    {!chatOpen && (
-                                        <span className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-brand-blue rounded-full border-2 border-brand-dark animate-pulse" />
-                                    )}
-                                </div>
-                            </motion.button>
-                        </>
-                    )}
-                </AnimatePresence>
 
             </div>
         </>
@@ -496,9 +183,7 @@ export function CustomCursor() {
                 // Check if target is a blue themed element
                 const isBlueElement = target.classList.contains('bg-brand-blue') || 
                                      target.classList.contains('text-brand-blue') || 
-                                     target.closest('.brand-icon-box-blue') || 
-                                     target.closest('.hover\\:border-brand-blue\\/40') ||
-                                     target.closest('.hover\\:border-brand-blue\\/30');
+                                     target.closest('.brand-icon-box-blue');
                 if (isBlueElement) {
                     setHoverType('blue');
                 } else {

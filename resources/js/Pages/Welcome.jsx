@@ -319,10 +319,10 @@ export default function Welcome({ portfolios = [] }) {
                         </a>
                     </motion.div>
 
-                    {/* Metrics Bar — Redesigned with right-padding protection against bottom-right AI Chat FAB collision */}
+                    {/* Metrics Bar */}
                     <motion.div 
                         variants={itemVariants}
-                        className="grid grid-cols-3 gap-2 sm:gap-4 border-t border-white/10 pt-6 sm:pt-8 mt-2 sm:mt-4 w-full max-w-md pr-12 sm:pr-0"
+                        className="grid grid-cols-3 gap-2 sm:gap-4 border-t border-white/10 pt-6 sm:pt-8 mt-2 sm:mt-4 w-full max-w-md"
                     >
                         <div className="flex flex-col gap-1 border-r border-white/5 pr-3 sm:pr-4">
                             <span className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none">10x</span>

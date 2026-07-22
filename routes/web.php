@@ -50,7 +50,6 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/briefs', [\App\Http\Controllers\BriefController::class, 'store'])->name('briefs.store');
-Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'handle'])->name('chat.handle');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

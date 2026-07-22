@@ -27,6 +27,13 @@ Setiap agen yang menyelesaikan tugas terstruktur (membuat fitur baru, mengubah a
 
 ## 🚀 Changelog & Checkpoints
 
+### [23 Juli 2026] - Pembersihan & Penghapusan Total AI Floating Chat FAB
+- **Apa yang dilakukan:**
+  1. **Penghapusan Controller & Rute:** Menghapus berkas `ChatController.php` dan rute `POST /chat` di `routes/web.php`.
+  2. **Pembersihan Layout Component (`AppLayout.jsx`):** Menghapus seluruh state `showFab`, `chatOpen`, `messages`, `inputMessage`, `isTyping`, `chatEndRef`, fungsi audio chime Web Audio API (`playChime`, `playSentSound`), serta blok JSX elemen Floating Action Button (FAB) melayang dan panel percakapan AI di pojok kanan bawah.
+  3. **Verification & Build:** Memverifikasi kompilasi Vite build (`1.15s`) dan 25 suite pengujian otomatis lulus 100%.
+- **File yang terdampak:** `app/Http/Controllers/ChatController.php` (deleted), `routes/web.php`, `resources/js/Layouts/AppLayout.jsx`, `resources/js/Pages/Welcome.jsx`, `.agents/roadmap.md`
+
 ### [22 Juli 2026] - Redesign Executive Admin Dashboard (`Dashboard.jsx`)
 - **Apa yang dilakukan:**
   1. **Executive KPI Cards Row:** Menampilkan 4 kartu KPI utama (Inbound Briefs, Active Pipelines, Portfolio Showcase, dan SQLite System Storage) dengan indikator status dan link pintas cepat.
